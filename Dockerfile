@@ -14,7 +14,7 @@ RUN mkdir /bld
 RUN wget -O /bld/transmission-2.03.tar.bz2 https://raw.githubusercontent.com/transmission/transmission-releases/master/transmission-2.03.tar.bz2
 RUN tar xvf /bld/transmission-2.03.tar.bz2 -C /bld
 WORKDIR /bld/transmission-2.03
-RUN ./configure CFLAGS="-I/usr/local/include/event2/" --enable-daemon
+RUN ./configure CFLAGS="-I/usr/include/event2/" --enable-daemon
 RUN make -s
 RUN make install
 
