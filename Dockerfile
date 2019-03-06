@@ -4,11 +4,11 @@ MAINTAINER smccloud
 
 # Parts of this Docker file and scripts were used from binhex/arch-deluge in order to get Deluge 1.3.11 for IP Torrents
 
-# Install EPEL
-RUN apt full-upgrade
+# Install updates
+RUN apt-get update && apt-get dist-upgrade
 
 # Install tools needed to build Transmission
-RUN apt install install build-essential automake autoconf libtool pkg-config intltool libcurl4-openssl-dev libglib2.0-dev libevent-dev libminiupnpc-dev libgtk-3-dev libappindicator3-dev
+RUN apt-get install install build-essential automake autoconf libtool pkg-config intltool libcurl4-openssl-dev libglib2.0-dev libevent-dev libminiupnpc-dev libgtk-3-dev libappindicator3-dev
 
 # Prepare build environment
 RUN mkdir /bld
