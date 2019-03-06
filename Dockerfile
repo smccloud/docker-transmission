@@ -9,7 +9,7 @@ RUN apt-get update
 RUN apt-get -y dist-upgrade
 
 # Install tools needed to build Transmission
-RUN apt-get -y install build-essential automake autoconf libtool pkg-config intltool libcurl4-openssl-dev libglib2.0-dev libevent-dev libminiupnpc-dev libgtk-3-dev libappindicator3-dev
+RUN apt-get -y install build-essential automake autoconf libtool pkg-config intltool libcurl4-openssl-dev libglib2.0-dev libevent-dev libminiupnpc-dev libgtk-3-dev libappindicator3-dev wget
 
 # Prepare build environment
 RUN mkdir /bld
