@@ -9,14 +9,14 @@ RUN apt-get update
 RUN apt-get -y dist-upgrade
 
 # Install tools needed to build Transmission
-RUN apt-get -y install build-essential automake autoconf libtool pkg-config intltool libcurl4-openssl-dev libglib2.0-dev libevent-dev libminiupnpc-dev libgtk-3-dev libappindicator3-dev wget libssl-dev openssl
+RUN apt-get -y install build-essential automake autoconf libtool pkg-config intltool libcurl4-openssl-dev libglib2.0-dev libevent-dev libminiupnpc-dev libgtk-3-dev libappindicator3-dev wget libssl-dev openssl linux-headers-$(uname -r)
 
 # Prepare build environment
 RUN mkdir /bld
 RUN wget -O /bld/transmission-2.03.tar.bz2 https://raw.githubusercontent.com/transmission/transmission-releases/master/transmission-2.03.tar.bz2
 RUN tar xvf /bld/transmission-2.03.tar.bz2 -C /bld
 WORKDIR /bld/transmission-2.03
-RUN ./configure -q --enable-daemon
+RUN ./configure --enable-daemon
 RUN make -s
 RUN make install
 
