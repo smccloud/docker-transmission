@@ -13,13 +13,12 @@ RUN apt-get -y install build-essential automake autoconf libtool pkg-config intl
 
 # Prepare build environment
 RUN mkdir /bld
-RUN wget -O /bld/transmission-2.04.tar.bz2 https://github.com/transmission/transmission-releases/blob/master/transmission-2.04.tar.bz2
-RUN tar xvf /bld/transmission-2.04.tar.bz2 -C /bld/
-
-
-# Remove components needed to build Transmission
-RUN apt-get -y remove build-essential automake autoconf libtool pkg-config intltool libcurl4-openssl-dev libglib2.0-dev libevent-dev libminiupnpc-dev libgtk-3-dev libappindicator3-dev --purge
-RUN apt-get -y autoremove
+RUN wget -O /bld/transmission-2.03.tar.bz2 https://github.com/transmission/transmission-releases/blob/master/transmission-2.03.tar.bz2
+RUN tar xvf /bld/transmission-2.03.tar.bz2 -C /bld/
+RUN cd /bld/transmission-2.03
+RUN ./autogen.sh
+RUN make -s
+RUN make install
 
 # Expose WebUI port
 EXPOSE 9091
