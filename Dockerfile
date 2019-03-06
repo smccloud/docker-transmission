@@ -1,23 +1,41 @@
-FROM ubuntu:18.04
+FROM centos:7
 ENV container docker
 MAINTAINER smccloud
 
-# Parts of this Docker file and scripts were used from binhex/arch-deluge in order to get Deluge 1.3.11 for IP Torrents
-
 # Install updates
-RUN apt-get update
+RUN yum -y upgrade
 RUN apt-get -y dist-upgrade
 
 # Install tools needed to build Transmission
-RUN apt-get -y install build-essential automake autoconf libtool pkg-config intltool libcurl4-openssl-dev libglib2.0-dev libevent-dev libminiupnpc-dev libgtk-3-dev libappindicator3-dev wget libssl-dev openssl linux-headers-$(uname -r)
+RUN yum -y install gcc gcc-c++ m4 make automake libtool gettext openssl-devel bzip2 libcurl libcurl-devel glib-devel glib2 glib2-devel perl-libxml-perl
 
 # Prepare build environment
 RUN mkdir /bld
-RUN wget -O /bld/transmission-2.03.tar.bz2 https://raw.githubusercontent.com/transmission/transmission-releases/master/transmission-2.03.tar.bz2
-RUN tar xvf /bld/transmission-2.03.tar.bz2 -C /bld
+WORKDIR /bld
+RUN curl -o transmission-2.03.tar.bz2 https://raw.githubusercontent.com/transmission/transmission-releases/master/transmission-2.03.tar.bz2
+RUN tar xvf transmission-2.03.tar.bz2
+RUN curl -o pkg-config-0.29.2.tar.gz https://pkg-config.freedesktop.org/releases/pkg-config-0.29.2.tar.gz
+RUN tar xvf pkg-config-0.29.2.tar.gz
+RUN curl -o intltool-0.40.6.tar.bz2 http://ftp.gnome.org/pub/gnome/sources/intltool/0.40/intltool-0.40.6.tar.bz2
+RUN tar xvf intltool-0.40.6.tar.bz2
+RUN curl -o curl-7.64.0.tar.bz2 https://curl.haxx.se/download/curl-7.64.0.tar.bz2
+RUN tar xvf curl-7.64.0.tar.bz2
+WORKDIR /bld/curl-7.64.0
+RUN ./buildconf
+RUN ./configure
+RUN make
+RUN make install
+WORKDIR /bld/pkg-config-0.29.2
+RUN ./configure
+RUN make
+RUN make install
+WORKDIR /bld/intltool-0.40.6
+RUN ./configure
+RUN make
+RUN make install
 WORKDIR /bld/transmission-2.03
 RUN ./configure --enable-daemon
-RUN make -s
+RUN make
 RUN make install
 
 # Expose WebUI port
