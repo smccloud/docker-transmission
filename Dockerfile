@@ -14,8 +14,8 @@ RUN apt-get -y install build-essential automake autoconf libtool pkg-config intl
 # Prepare build environment
 RUN mkdir /bld
 RUN wget -O /bld/transmission-2.03.tar.bz2 https://raw.githubusercontent.com/transmission/transmission-releases/master/transmission-2.03.tar.bz2
-RUN tar xvf /bld/transmission-2.03.tar.bz2 -C /bld/
-RUN cd /bld/transmission-2.03
+RUN tar xvf /bld/transmission-2.03.tar.bz2 -C /bld
+WORKDIR /bld/transmission-2.03
 RUN ./autogen.sh
 RUN make -s
 RUN make install
