@@ -1,41 +1,21 @@
-FROM centos:7
+FROM ubuntu:18.04
 ENV container docker
 MAINTAINER smccloud
 
 # Install updates
-RUN yum -y upgrade
+RUN apt-get update
 RUN apt-get -y dist-upgrade
 
 # Install tools needed to build Transmission
-RUN yum -y install gcc gcc-c++ m4 make automake libtool gettext openssl-devel bzip2 libcurl libcurl-devel glib-devel glib2 glib2-devel perl-libxml-perl
+RUN apt-get -y install build-essential automake autoconf libtool pkg-config intltool libcurl4-openssl-dev libglib2.0-dev libevent-dev libminiupnpc-dev libgtk-3-dev libappindicator3-dev wget libssl-dev openssl
 
 # Prepare build environment
 RUN mkdir /bld
-WORKDIR /bld
-RUN curl -o transmission-2.03.tar.bz2 https://raw.githubusercontent.com/transmission/transmission-releases/master/transmission-2.03.tar.bz2
-RUN tar xvf transmission-2.03.tar.bz2
-RUN curl -o pkg-config-0.29.2.tar.gz https://pkg-config.freedesktop.org/releases/pkg-config-0.29.2.tar.gz
-RUN tar xvf pkg-config-0.29.2.tar.gz
-RUN curl -o intltool-0.40.6.tar.bz2 http://ftp.gnome.org/pub/gnome/sources/intltool/0.40/intltool-0.40.6.tar.bz2
-RUN tar xvf intltool-0.40.6.tar.bz2
-RUN curl -o curl-7.64.0.tar.bz2 https://curl.haxx.se/download/curl-7.64.0.tar.bz2
-RUN tar xvf curl-7.64.0.tar.bz2
-WORKDIR /bld/curl-7.64.0
-RUN ./buildconf
-RUN ./configure
-RUN make
-RUN make install
-WORKDIR /bld/pkg-config-0.29.2
-RUN ./configure
-RUN make
-RUN make install
-WORKDIR /bld/intltool-0.40.6
-RUN ./configure
-RUN make
-RUN make install
+RUN wget -O /bld/transmission-2.03.tar.bz2 https://raw.githubusercontent.com/transmission/transmission-releases/master/transmission-2.03.tar.bz2
+RUN tar xvf /bld/transmission-2.03.tar.bz2 -C /bld
 WORKDIR /bld/transmission-2.03
-RUN ./configure --enable-daemon
-RUN make
+RUN ./configure CFLAGS="-I/usr/local/include/event2/" --enable-daemon
+RUN make -s
 RUN make install
 
 # Expose WebUI port
