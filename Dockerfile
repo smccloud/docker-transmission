@@ -5,15 +5,21 @@ MAINTAINER smccloud
 # Parts of this Docker file and scripts were used from binhex/arch-deluge in order to get Deluge 1.3.11 for IP Torrents
 
 # Install updates
-RUN apt-get update && apt-get -y dist-upgrade
+RUN apt-get update
+RUN apt-get -y dist-upgrade
 
 # Install tools needed to build Transmission
-RUN apt-get -y install install build-essential automake autoconf libtool pkg-config intltool libcurl4-openssl-dev libglib2.0-dev libevent-dev libminiupnpc-dev libgtk-3-dev libappindicator3-dev
+RUN apt-get -y install build-essential automake autoconf libtool pkg-config intltool libcurl4-openssl-dev libglib2.0-dev libevent-dev libminiupnpc-dev libgtk-3-dev libappindicator3-dev
 
 # Prepare build environment
 RUN mkdir /bld
 RUN wget -O /bld/transmission-2.04.tar.bz2 https://github.com/transmission/transmission-releases/blob/master/transmission-2.04.tar.bz2
 RUN tar xvf /bld/transmission-2.04.tar.bz2 -C /bld/
+
+
+# Remove components needed to build Transmission
+RUN apt-get -y remove build-essential automake autoconf libtool pkg-config intltool libcurl4-openssl-dev libglib2.0-dev libevent-dev libminiupnpc-dev libgtk-3-dev libappindicator3-dev --purge
+RUN apt-get -y autoremove
 
 # Expose WebUI port
 EXPOSE 9091
