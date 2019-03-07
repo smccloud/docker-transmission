@@ -42,7 +42,7 @@ RUN ./configure
 RUN make
 RUN make install
 WORKDIR /bld/transmission-2.03
-RUN ./configure --enable-daemon
+RUN ./configure CFLAGS="-I/usr/local/include/event2/" --enable-daemon
 RUN make
 RUN make install
 
