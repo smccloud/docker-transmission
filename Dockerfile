@@ -6,20 +6,20 @@ MAINTAINER smccloud
 RUN yum -y upgrade
 
 # Install tools needed to build Transmission
-RUN yum -y install gcc gcc-c++ m4 make automake libtool gettext openssl-devel bzip2 libcurl libcurl-devel glib-devel glib2 glib2-devel perl-libxml-perl
+RUN yum -y install gcc gcc-c++ m4 make automake libtool gettext openssl-devel bzip2 libcurl libcurl-devel glib-devel glib2 glib2-devel perl-libxml-perl wget
 
 # Prepare build environment
 RUN mkdir /bld
 WORKDIR /bld
-RUN curl -o transmission-2.03.tar.bz2 https://raw.githubusercontent.com/transmission/transmission-releases/master/transmission-2.03.tar.bz2
+RUN wget https://raw.githubusercontent.com/transmission/transmission-releases/master/transmission-2.03.tar.bz2
 RUN tar xvf transmission-2.03.tar.bz2
-RUN curl -o pkg-config-0.29.2.tar.gz https://pkg-config.freedesktop.org/releases/pkg-config-0.29.2.tar.gz
+RUN wget https://pkg-config.freedesktop.org/releases/pkg-config-0.29.2.tar.gz
 RUN tar xvf pkg-config-0.29.2.tar.gz
-RUN curl -o intltool-0.40.6.tar.bz2 http://ftp.gnome.org/pub/gnome/sources/intltool/0.40/intltool-0.40.6.tar.bz2
+RUN wget http://ftp.gnome.org/pub/gnome/sources/intltool/0.40/intltool-0.40.6.tar.bz2
 RUN tar xvf intltool-0.40.6.tar.bz2
-RUN curl -o curl-7.64.0.tar.bz2 https://curl.haxx.se/download/curl-7.64.0.tar.bz2
+RUN wget https://curl.haxx.se/download/curl-7.64.0.tar.bz2
 RUN tar xvf curl-7.64.0.tar.bz2
-RUN curl -o libevent-2.1.8-stable.tar.gz https://github.com/libevent/libevent/releases/download/release-2.1.8-stable/libevent-2.1.8-stable.tar.gz
+RUN wget https://github.com/libevent/libevent/releases/download/release-2.1.8-stable/libevent-2.1.8-stable.tar.gz
 RUN tar xvf libevent-2.1.8-stable.tar.gz
 WORKDIR /bld/curl-7.64.0
 RUN ./buildconf
