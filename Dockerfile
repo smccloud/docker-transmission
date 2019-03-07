@@ -19,6 +19,8 @@ RUN curl -o intltool-0.40.6.tar.bz2 http://ftp.gnome.org/pub/gnome/sources/intlt
 RUN tar xvf intltool-0.40.6.tar.bz2
 RUN curl -o curl-7.64.0.tar.bz2 https://curl.haxx.se/download/curl-7.64.0.tar.bz2
 RUN tar xvf curl-7.64.0.tar.bz2
+RUN curl -o libevent-2.1.8-stable.tar.gz https://github-production-release-asset-2e65be.s3.amazonaws.com/1856976/f9ea6922-e66b-11e6-9f5c-722c00daa657?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20190307%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20190307T134826Z&X-Amz-Expires=300&X-Amz-Signature=3631c57146c09e6f79489fb2c7882d40c98be05ae7ef570efd2a9889638fd178&X-Amz-SignedHeaders=host&actor_id=433683&response-content-disposition=attachment%3B%20filename%3Dlibevent-2.1.8-stable.tar.gz&response-content-type=application%2Foctet-stream
+RUN tar xvf libevent-2.1.8-stable.tar.gz
 WORKDIR /bld/curl-7.64.0
 RUN ./buildconf
 RUN ./configure
@@ -29,6 +31,10 @@ RUN ./configure
 RUN make
 RUN make install
 WORKDIR /bld/intltool-0.40.6
+RUN ./configure
+RUN make
+RUN make install
+WORKDIR /bld/libevent-2.1.8-stable
 RUN ./configure
 RUN make
 RUN make install
