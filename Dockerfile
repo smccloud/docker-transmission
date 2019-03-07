@@ -4,7 +4,6 @@ MAINTAINER smccloud
 
 # Install updates
 RUN yum -y upgrade
-RUN apt-get -y dist-upgrade
 
 # Install tools needed to build Transmission
 RUN yum -y install gcc gcc-c++ m4 make automake libtool gettext openssl-devel bzip2 libcurl libcurl-devel glib-devel glib2 glib2-devel perl-libxml-perl
