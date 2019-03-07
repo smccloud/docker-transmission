@@ -2,6 +2,9 @@ FROM centos:6
 ENV container docker
 MAINTAINER smccloud
 
+# Install EPEL
+RUN yum -y install epel-release
+
 # Install updates
 RUN yum -y upgrade
 
