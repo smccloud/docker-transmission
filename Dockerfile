@@ -1,4 +1,4 @@
-FROM centos:6
+FROM centos:5
 ENV container docker
 MAINTAINER smccloud
 
