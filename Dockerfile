@@ -14,7 +14,7 @@ WORKDIR /bld
 RUN wget --no-check-certificate https://raw.githubusercontent.com/transmission/transmission-releases/master/transmission-2.03.tar.bz2
 RUN tar xvf transmission-2.03.tar.bz2
 WORKDIR /bld/transmission-2.03
-RUN ./configure CFLAGS="-I/usr/include/event2/" --enable-daemon
+RUN ./configure CPPFLAGS="-I/usr/include/event2/" --enable-daemon
 RUN make
 RUN make install
 
