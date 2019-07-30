@@ -1,4 +1,4 @@
-FROM ubuntu:12.04.4
+FROM ubuntu:12.04
 ENV container docker
 MAINTAINER smccloud
 
