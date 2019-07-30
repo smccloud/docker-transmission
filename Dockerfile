@@ -2,14 +2,11 @@ FROM ubuntu:12.04.4
 ENV container docker
 MAINTAINER smccloud
 
-# Install EPEL
-#RUN yum -y install epel-release
-
 # Install updates
-#RUN yum -y upgrade
+RUN apt-get update && apt-get dist-upgrade -y
 
 # Install tools needed to build Transmission
-#RUN yum -y install gcc gcc-c++ m4 make automake libtool gettext openssl-devel bzip2 libcurl libcurl-devel glib-devel glib2 glib2-devel perl-libxml-perl wget
+RUN apt-get install build-essential -y
 
 # Prepare build environment
 RUN mkdir /bld
