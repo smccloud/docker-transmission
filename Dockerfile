@@ -11,7 +11,7 @@ RUN apt-get install build-essential wget -y
 # Prepare build environment
 RUN mkdir /bld
 WORKDIR /bld
-RUN wget https://raw.githubusercontent.com/transmission/transmission-releases/master/transmission-2.03.tar.bz2
+RUN wget --no-check-certificate https://raw.githubusercontent.com/transmission/transmission-releases/master/transmission-2.03.tar.bz2
 RUN tar xvf transmission-2.03.tar.bz2
 #RUN wget https://pkg-config.freedesktop.org/releases/pkg-config-0.29.2.tar.gz
 #RUN tar xvf pkg-config-0.29.2.tar.gz
