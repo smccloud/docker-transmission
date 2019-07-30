@@ -6,7 +6,7 @@ MAINTAINER smccloud
 RUN apt-get update && apt-get dist-upgrade -y
 
 # Install tools needed to build Transmission
-RUN apt-get install build-essential wget -y
+RUN apt-get install build-essential wget automake autoconf libtool pkg-config intltool libcurl4-openssl-dev libglib2.0-dev libevent-dev libminiupnpc-dev libgtk-3-dev libappindicator3-dev -y
 
 # Prepare build environment
 RUN mkdir /bld
