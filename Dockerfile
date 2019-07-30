@@ -26,9 +26,11 @@ EXPOSE 51413
 EXPOSE 51413/udp
 
 # Map /config to host defined config path (used to store configuration from app)
+RUN mkdir /config
 VOLUME /config
 
 # Map /data to host defined data path (used to store data from app)
+RUN mkdir /data
 VOLUME /data
 
 # Add pre-configured config files for nobody
